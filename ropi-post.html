@@ -1,0 +1,98 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+
+<dom-module id="ropi-post">
+  <template>
+    <style>
+      :host {
+        display: block;
+		
+		background-color: #f9f9f9;
+		
+		border-style: solid;
+		border-color: #bbb;
+		border-width: 1px;
+		border-radius: 2px;
+		
+		box-shadow: 0px 0px 5px 1px #bbb;
+		
+		padding: 20px;
+		margin: 30px;
+      }
+	  .tags {
+		@apply(--layout-horizontal);
+	  }
+	  .tags > div {
+		padding: 3px 1px;
+		background-color: #ddd;
+		color: #999;
+		border-radius: 2px;
+		margin: 0px 3px;
+	  }
+	  .content > p {
+		text-align: justify;
+		text-justify: inter-word;
+	  }
+    </style>
+    <h3 class="title">[[title]]</h3>
+	<div class="content">
+		<template is="dom-repeat" items="[[content]]">
+			<p>[[item]]</p>
+		</template>
+	</div>
+	<div class="tags">
+		<template is="dom-repeat" items="[[tags]]">
+			<div>[[item]]</div>
+		</template>
+	</div>
+	<template is="dom-if" if="[[preview]]">
+		<p style="text-align: right">
+			<a href="javascript:void(0)" on-click="readmore">Read more...</a>
+		</p>
+	</template>
+	
+  </template>
+
+  <script>
+    /**
+     * `ropi-post`
+     * Posts to appear in a nice, collective manner
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class RopiPost extends Polymer.Element {
+      static get is() { return 'ropi-post'; }
+      static get properties() {
+        return {
+          title: {
+            type: String,
+            value: 'Random title'
+          },
+		  preview: {
+			type: Boolean,
+			value: true
+		  },
+		  content: {
+			type: Array,
+			value() { 
+					return [
+						"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nibh dolor, maximus ac tincidunt nec, tincidunt eu eros. Nullam lobortis, mi nec pharetra tempor, tortor tortor dapibus diam, et condimentum dolor velit in diam. Curabitur scelerisque consequat volutpat. Donec quis orci posuere, tempus eros sed, fermentum sapien. Nulla accumsan, erat et tempor tincidunt, odio orci hendrerit dui, et suscipit libero nibh eu lacus. Quisque justo massa, lacinia a vestibulum quis, blandit nec nisl. Nunc eleifend, eros nec hendrerit interdum, lorem nibh lacinia nibh, id posuere velit nisl eget quam. Cras quis augue a leo consequat imperdiet id vitae nulla. Ut vestibulum, est vitae laoreet suscipit, massa mauris facilisis mi, vel consectetur velit neque non elit. ",
+						"Morbi quis augue non tellus hendrerit laoreet a sit amet leo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vitae dictum enim. Vestibulum ac ornare lacus, sit amet molestie purus. Ut eleifend commodo tristique. Morbi ultricies posuere libero, eu elementum metus lobortis id. Nunc elementum laoreet enim, rhoncus imperdiet orci feugiat eget. "
+					];
+			}
+		  },
+		  tags: {
+			type: Array,
+			value() { 
+					return ["tag1", "tag2"];
+			}
+		  }
+        };
+      }
+    }
+
+    window.customElements.define(RopiPost.is, RopiPost);
+  </script>
+</dom-module>
